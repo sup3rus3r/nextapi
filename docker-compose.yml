@@ -1,0 +1,33 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_TYPE: ${DATABASE_TYPE:-sqlite}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
+      JWT_ACCESS_TOKEN_EXPIRE_MINUTES: ${JWT_ACCESS_TOKEN_EXPIRE_MINUTES:-30}
+      RATE_LIMIT_USER: ${RATE_LIMIT_USER:-60}
+      RATE_LIMIT_API_CLIENT: ${RATE_LIMIT_API_CLIENT:-100}
+      MONGO_URI: ${MONGO_URI:-}
+    volumes:
+      - backend_data:/app
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      BACKEND_URL: http://backend:8000
+      AUTH_TRUST_HOST: "true"
+      AUTH_SECRET: ${AUTH_SECRET}
+      NEXT_PUBLIC_ENCRYPTION_KEY: ${NEXT_PUBLIC_ENCRYPTION_KEY}
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  backend_data:

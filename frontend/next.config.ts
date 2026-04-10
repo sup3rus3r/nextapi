@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   async rewrites() {
     return [
       {
@@ -9,7 +10,7 @@ const nextConfig: NextConfig = {
       },
       {
         source      : "/api/:path*",
-        destination : "http://localhost:8000/:path*",
+        destination : `${process.env.BACKEND_URL ?? "http://localhost:8000"}/:path*`,
       },
     ];
   },

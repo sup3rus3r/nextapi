@@ -360,6 +360,61 @@ getAccessibleRoutes('guest'); // Returns routes for guest role
 // Check if user can access a specific path
 canAccessPath('admin', '/admin'); // true
 ```
+## Docker
+
+### Single-command start
+
+```bash
+# 1. Copy the example env file and fill in your secrets
+cp .env.example .env
+# Edit .env — set ENCRYPTION_KEY, JWT_SECRET_KEY, AUTH_SECRET, NEXT_PUBLIC_ENCRYPTION_KEY
+
+# 2. Build and start everything
+docker compose up --build
+```
+
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
+
+### Environment variables
+
+Create a `.env` file in the project root (next to `docker-compose.yml`). See `.env.example` for all available variables.
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `ENCRYPTION_KEY` | Yes | 32-byte hex key — must match `NEXT_PUBLIC_ENCRYPTION_KEY` in frontend |
+| `JWT_SECRET_KEY` | Yes | Secret used to sign JWT tokens |
+| `JWT_ALGORITHM` | No | Default: `HS256` |
+| `JWT_ACCESS_TOKEN_EXPIRE_MINUTES` | No | Default: `30` |
+| `RATE_LIMIT_USER` | No | Default: `60` (requests/min) |
+| `RATE_LIMIT_API_CLIENT` | No | Default: `100` (requests/min) |
+| `DATABASE_TYPE` | No | `sqlite` (default) or `mongo` |
+| `MONGO_URI` | Only if mongo | Full MongoDB connection URI |
+
+Generate secrets:
+```bash
+openssl rand -hex 32   # ENCRYPTION_KEY / JWT_SECRET_KEY
+```
+
+### MongoDB with Docker
+
+```bash
+DATABASE_TYPE=mongo MONGO_URI=mongodb://user:pass@host:27017/dbname docker compose up --build
+```
+
+### SQLite persistence
+
+The SQLite database (`app.db`) is stored in a named Docker volume (`backend_data`) and survives container restarts.
+
+### Stopping
+
+```bash
+docker compose down          # stop containers
+docker compose down -v       # stop + delete the SQLite volume
+```
+
+---
+
 ## To Do
  - make the template PWA ready.
 
