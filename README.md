@@ -406,6 +406,31 @@ DATABASE_TYPE=mongo MONGO_URI=mongodb://user:pass@host:27017/dbname docker compo
 
 The SQLite database (`app.db`) is stored in a named Docker volume (`backend_data`) and survives container restarts.
 
+### SSL with nginx (local/self-signed certs)
+
+nginx is optional and only starts when the `ssl` profile is active.
+
+1. Drop your cert and key into `nginx/certs/`:
+   ```
+   nginx/certs/cert.pem
+   nginx/certs/key.pem
+   ```
+   Generate a self-signed cert for local use:
+   ```bash
+   openssl req -x509 -newkey rsa:4096 -keyout nginx/certs/key.pem \
+     -out nginx/certs/cert.pem -days 365 -nodes \
+     -subj "/CN=localhost"
+   ```
+
+2. Start with the ssl profile:
+   ```bash
+   docker compose --profile ssl up --build
+   ```
+
+- HTTPS: https://localhost (proxies to frontend)
+- HTTP redirects to HTTPS automatically
+- Edit `nginx/nginx.conf` to change `server_name` for non-localhost domains
+
 ### Stopping
 
 ```bash

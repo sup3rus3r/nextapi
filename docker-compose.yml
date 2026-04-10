@@ -29,5 +29,19 @@ services:
       - backend
     restart: unless-stopped
 
+  nginx:
+    image: nginx:alpine
+    profiles: [ssl]
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+
 volumes:
   backend_data:
