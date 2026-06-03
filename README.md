@@ -1,6 +1,8 @@
 # Next.js + FastAPI Boilerplate
 
-A production-ready full-stack boilerplate featuring **Next.js 16** frontend and **FastAPI** backend with built-in authentication, encryption, rate limiting, and dual database support.
+![NextAPI Landing Page](./image.png)
+
+A production-ready full-stack boilerplatefeaturing **Next.js 16** frontend and **FastAPI** backend with built-in authentication, encryption, rate limiting, and dual database support.
 
 ## Features
 

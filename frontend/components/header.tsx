@@ -22,7 +22,7 @@ export function Header() {
 			<nav className="flex h-14  items-center justify-between px-4">
 				<div className="rounded-md p-2">
 					<div className="relative w-25 md:w-35 lg:w-40  aspect-video cursor-pointer">
-						<Image src={'/ackermans_logo.svg'} alt="logo" fill/>
+						<Image src={'/logo_transparent.png'} alt="NextAPI" fill style={{ objectFit: 'contain' }}/>
 					</div>
 				</div>
 				<div className="hidden items-center gap-3 md:flex">
