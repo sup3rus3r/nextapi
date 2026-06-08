@@ -1,8 +1,11 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from typing import Optional
 import os
+from dotenv.main import load_dotenv
 
-MONGO_URL = os.getenv("MONGO_URL", "mongodb://localhost:27017")
+load_dotenv()
+
+MONGO_URL = os.getenv("MONGO_URI", "mongodb://localhost:27017")
 MONGO_DB_NAME = os.getenv("MONGO_DB_NAME", "learning_scheduler")
 
 client: Optional[AsyncIOMotorClient] = None

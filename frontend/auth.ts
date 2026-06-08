@@ -1,3 +1,4 @@
+declare const process: { env: Record<string, string | undefined> };
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { encryptPayload } from "@/lib/crypto-server";
@@ -21,7 +22,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             password: credentials.password,
           });
 
-          const res = await fetch("http://localhost:8000/auth/login", {
+          const backendUrl = process.env.BACKEND_URL ?? "http://localhost:8000";
+          const res = await fetch(`${backendUrl}/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ encrypted: encryptedData }),
