@@ -48,7 +48,7 @@ export default function RegisterPage() {
       <div className=" p-8 rounded-md border w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center ">
           <div className="relative  h-6 w-8 aspect-square">
-            <Image src={'/ackerman_logo_small.png'} alt="" fill />
+            <Image src={'/placeholder.png'} alt="" fill />
           </div>
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
