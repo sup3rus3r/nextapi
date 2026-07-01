@@ -21,15 +21,17 @@ export function Header() {
 		>
 			<nav className="flex h-14  items-center justify-between px-4">
 				<div className="rounded-md p-2">
-					<div className="relative w-25 md:w-35 lg:w-40  aspect-video cursor-pointer">
+					<div className="relative w-20 md:w-20 lg:w-20  aspect-video cursor-pointer">
 						<Image src={'/logo_transparent.png'} alt="NextAPI" fill style={{ objectFit: 'contain' }}/>
 					</div>
 				</div>
 				<div className="hidden items-center gap-3 md:flex">
-					<Button variant={'outline'} className="cursor-pointer text-primary font-semibold px-12 rounded-sm" onClick={()=>{
+					<Button variant={'ghost'} className="cursor-pointer font-medium" onClick={()=>{
 						router.push('/login')
 					}}>Sign In</Button>
-					<Button variant={'ghost'} className="cursor-pointer text-primary font-semibold px-12 rounded-sm">Get Started</Button>
+					<Button className="cursor-pointer font-medium" onClick={()=>{
+						router.push('/register')
+					}}>Get Started</Button>
 				</div>
 				<MobileNav />
 			</nav>
